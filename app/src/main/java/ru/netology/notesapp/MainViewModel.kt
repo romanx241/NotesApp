@@ -2,38 +2,26 @@ package ru.netology.notesapp
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
-import ru.netology.notesapp.model.Note
-import ru.netology.notesapp.utils.TYPE_FIREBASE
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import ru.netology.notesapp.database.room.dao.AppRoomDatabase
+import ru.netology.notesapp.database.room.dao.repository.RoomRepository
+import ru.netology.notesapp.utils.REPOSITORY
 import ru.netology.notesapp.utils.TYPE_ROOM
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readTest: MutableLiveData<List<Note>> by lazy {
-        MutableLiveData<List<Note>>()
-    }
+    val context = application
 
-    val dbType: MutableLiveData<String> by lazy {
-        MutableLiveData<String>(TYPE_ROOM)
-    }
-
-    fun initDatabase(type: String) {
-        dbType.value = type
+    fun initDatabase(type: String, onSuccess: () -> Unit) {
         Log.d("checkData", "MainViewModel initDatabase with type: $type")
-    }
-
-    init {
-        readTest.value = when (dbType.value) {
+        when (type) {
             TYPE_ROOM -> {
-                listOf<Note>(
-                    Note(title = "Note 1", subTitle = "SubTitle for note 1"),
-                    Note(title = "Note 2", subTitle = "SubTitle for note 2"),
-                    Note(title = "Note 3", subTitle = "SubTitle for note 3"),
-                    Note(title = "Note 4", subTitle = "SubTitle for note 4"),
-                )
+                val dao = AppRoomDatabase.getInstance(context = context).getRoomDao()
+                REPOSITORY = RoomRepository(dao)
+                onSuccess()
             }
-            TYPE_FIREBASE -> listOf()
-            else -> listOf()
         }
     }
 }
