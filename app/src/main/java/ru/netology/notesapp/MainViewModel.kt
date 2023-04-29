@@ -5,8 +5,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.netology.notesapp.database.room.dao.AppRoomDatabase
 import ru.netology.notesapp.database.room.dao.repository.RoomRepository
+import ru.netology.notesapp.model.Note
 import ru.netology.notesapp.utils.REPOSITORY
 import ru.netology.notesapp.utils.TYPE_ROOM
 
@@ -24,7 +28,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-}
+    fun addNote(note:Note, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.create(note = note){
+                viewModelScope.launch(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        }
+    }
+
+    fun readAllNotes() = REPOSITORY.readAll
+    }
+
 
 
 class MainViewModelFactory(private val application: Application) : ViewModelProvider.Factory {

@@ -32,10 +32,9 @@ import ru.netology.notesapp.ui.theme.NotesAppTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(navController: NavHostController) {
-    val context = LocalContext.current
-    val mViewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
+    val notes = viewModel.readAllNotes().observeAsState(listOf()).value
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -49,17 +48,12 @@ fun MainScreen(navController: NavHostController) {
             }
         }
     ) {
-//        Column() {
-//            NoteItem(title = "Note 1", subTitle = "SubTitle for Note 1", navController = navController)
-//            NoteItem(title = "Note 2", subTitle = "SubTitle for Note 2", navController = navController)
-//            NoteItem(title = "Note 3", subTitle = "SubTitle for Note 3", navController = navController)
-//            NoteItem(title = "Note 4", subTitle = "SubTitle for Note 4", navController = navController)
-//        }
-//        LazyColumn{
-//            items(notes) { note ->
-//                NoteItem(note = note, navController = navController)
-//            }
-//        }
+
+        LazyColumn{
+            items(notes) { note ->
+                NoteItem(note = note, navController = navController)
+            }
+        }
     }
 }
 
@@ -95,6 +89,9 @@ fun NoteItem(note: Note, navController: NavHostController){
 
 fun prevMainScreen(){
     NotesAppTheme {
-        MainScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        MainScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
