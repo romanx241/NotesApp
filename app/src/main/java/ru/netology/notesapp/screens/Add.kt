@@ -26,6 +26,7 @@ import ru.netology.notesapp.MainViewModelFactory
 import ru.netology.notesapp.model.Note
 import ru.netology.notesapp.navigation.NavRoute
 import ru.netology.notesapp.ui.theme.NotesAppTheme
+import ru.netology.notesapp.utils.Constants
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -41,7 +42,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center
                 ){
             Text(
-                text = "Add new note",
+                text = Constants.Keys.ADD_NEW_NOTE,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -52,7 +53,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     title = it
                     isButtonEnabled = title.isNotEmpty() && subTitle.isNotEmpty()
             },
-                label = { Text(text = "Note title")},
+                label = { Text(text = Constants.Keys.NOTE_TITLE)},
                 isError = title.isEmpty()
             )
             OutlinedTextField(
@@ -61,7 +62,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     subTitle = it
                     isButtonEnabled = title.isNotEmpty() && subTitle.isNotEmpty()
             },
-                label = { Text(text = "Note subTitle")},
+                label = { Text(text = Constants.Keys.NOTE_SUBTITLE)},
                 isError = subTitle.isEmpty()
             )
             Button(
@@ -73,7 +74,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     }
                 }
             ) {
-                Text(text = "Add Note")
+                Text(text = Constants.Keys.ADD_NOTE)
             }
         }
     }

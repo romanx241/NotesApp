@@ -19,6 +19,7 @@ import ru.netology.notesapp.MainViewModel
 import ru.netology.notesapp.MainViewModelFactory
 import ru.netology.notesapp.navigation.NavRoute
 import ru.netology.notesapp.ui.theme.NotesAppTheme
+import ru.netology.notesapp.utils.Constants
 import ru.netology.notesapp.utils.TYPE_FIREBASE
 import ru.netology.notesapp.utils.TYPE_ROOM
 
@@ -38,7 +39,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "What will we use?")
+            Text(text = Constants.Keys.WHAT_WILL_WE_USE)
             Button(
                 onClick = {
                     mViewModel.initDatabase(TYPE_ROOM) {
@@ -49,7 +50,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
                 ) {
-                Text(text = "Room Database")
+                Text(text = Constants.Keys.ROOM_DATABASE)
             }
             Button(
                 onClick = {
@@ -61,7 +62,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Firebase Database")
+                Text(text = Constants.Keys.FIREBASE_DATABASE)
             }
         }
     }

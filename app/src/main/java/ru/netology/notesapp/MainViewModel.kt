@@ -16,7 +16,7 @@ import ru.netology.notesapp.utils.TYPE_ROOM
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    val context = application
+    private val context = application
 
     fun initDatabase(type: String, onSuccess: () -> Unit) {
         Log.d("checkData", "MainViewModel initDatabase with type: $type")
@@ -37,6 +37,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun updateNote(note:Note, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.update(note = note){
+                viewModelScope.launch(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        }
+    }
+
+    fun deleteNote(note:Note, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.delete(note = note){
+                viewModelScope.launch(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        }
+    }
+
 
     fun readAllNotes() = REPOSITORY.readAll
     }

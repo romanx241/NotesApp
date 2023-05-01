@@ -7,7 +7,7 @@ import ru.netology.notesapp.model.Note
 @Dao
 interface NoteRoomDao {
 
-    @Query("SELECT * FROM note")
+    @Query("SELECT * FROM notes_table")
     fun getAllNotes(): LiveData<List<Note>>
 
     @Insert
