@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.netology.notesapp.database.firebase.AppFirebaseRepository
 import ru.netology.notesapp.database.room.dao.AppRoomDatabase
 import ru.netology.notesapp.database.room.dao.repository.RoomRepository
 import ru.netology.notesapp.model.Note
 import ru.netology.notesapp.utils.REPOSITORY
+import ru.netology.notesapp.utils.TYPE_FIREBASE
 import ru.netology.notesapp.utils.TYPE_ROOM
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,6 +27,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val dao = AppRoomDatabase.getInstance(context = context).getRoomDao()
                 REPOSITORY = RoomRepository(dao)
                 onSuccess()
+            }
+            TYPE_FIREBASE -> {
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase(
+                    {onSuccess()},
+                    {Log.d("checkData", "Error: ${it}")}
+                )
             }
         }
     }
