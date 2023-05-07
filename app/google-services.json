@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "895081899341",
+    "project_id": "notes-app-e5c18",
+    "storage_bucket": "notes-app-e5c18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895081899341:android:3c5c8f4efba62e45efc304",
+        "android_client_info": {
+          "package_name": "ru.netology.notesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895081899341-4cnvmhon16iibjgue020aknpuhoaeknm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK1bkbYDUYFeq-Fdeo_kMLIBxeI99zjRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895081899341-4cnvmhon16iibjgue020aknpuhoaeknm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
